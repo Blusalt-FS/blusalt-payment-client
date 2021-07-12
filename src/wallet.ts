@@ -7,6 +7,8 @@ type Customer = {
     middle_name?: string
     email: string
     mobile_no: string
+    bvn?: string | null | undefined
+    nin?: string | null | undefined
 }
 
 type BankAccount = {
@@ -41,7 +43,7 @@ type DebitWalletRequest = {
 
 type TransferRequest = {
     amount: number
-    reference: string,
+    wallet_reference: string,
     currency?: string
     narration?: string
     destination: {
@@ -78,9 +80,11 @@ export default {
         const body = {...request, action: "credit"};
         return (await apiClient.put(`/wallets/${reference}`, body)).data.data;
     },
-    async transfer(reference: string, request: TransferRequest ): Promise<Transaction>{
+    async transfer(request: TransferRequest ): Promise<Transaction>{
         const body = {...request, action: "transfer"};
-        return (await apiClient.put(`/wallets/${reference}`, body)).data.data;
+        // @ts-ignore
+        delete body.wallet_reference;
+        return (await apiClient.put(`/wallets/${request.wallet_reference}`, body)).data.data;
     },
     async getTransaction(reference: string): Promise<Transaction>{
         return (await apiClient.get(`/transactions/${reference}`)).data.data;

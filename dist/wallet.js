@@ -13,35 +13,32 @@ const api_client_1 = require("./api-client");
 exports.default = {
     createWallet(body) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = (yield api_client_1.default.post('/wallets', body)).data;
-            return response.data;
+            return (yield api_client_1.default.post('/wallets', body)).data.data;
         });
     },
     getWallet(reference) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = (yield api_client_1.default.post(`/wallets/${reference}`)).data;
-            return response.data;
+            return (yield api_client_1.default.post(`/wallets/${reference}`)).data.data;
         });
     },
     debitWallet(reference, request) {
         return __awaiter(this, void 0, void 0, function* () {
             const body = Object.assign(Object.assign({}, request), { action: "debit" });
-            const response = (yield api_client_1.default.put(`/wallets/${reference}`, body)).data;
-            return response.data;
+            return (yield api_client_1.default.put(`/wallets/${reference}`, body)).data.data;
         });
     },
     creditWallet(reference, request) {
         return __awaiter(this, void 0, void 0, function* () {
             const body = Object.assign(Object.assign({}, request), { action: "credit" });
-            const response = (yield api_client_1.default.put(`/wallets/${reference}`, body)).data;
-            return response.data;
+            return (yield api_client_1.default.put(`/wallets/${reference}`, body)).data.data;
         });
     },
-    transfer(reference, request) {
+    transfer(request) {
         return __awaiter(this, void 0, void 0, function* () {
             const body = Object.assign(Object.assign({}, request), { action: "transfer" });
-            const response = (yield api_client_1.default.put(`/wallets/${reference}`, body)).data;
-            return response.data;
+            // @ts-ignore
+            delete body.wallet_reference;
+            return (yield api_client_1.default.put(`/wallets/${request.wallet_reference}`, body)).data.data;
         });
     },
     getTransaction(reference) {

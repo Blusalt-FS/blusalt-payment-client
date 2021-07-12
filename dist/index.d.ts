@@ -10,6 +10,8 @@ declare const _default: {
                 middle_name?: string | undefined;
                 email: string;
                 mobile_no: string;
+                bvn?: string | null | undefined;
+                nin?: string | null | undefined;
             };
             type?: "bank" | "wallet" | undefined;
         }): Promise<{
@@ -24,6 +26,8 @@ declare const _default: {
                 middle_name?: string | undefined;
                 email: string;
                 mobile_no: string;
+                bvn?: string | null | undefined;
+                nin?: string | null | undefined;
             };
             bank: {
                 account_number: string;
@@ -46,6 +50,8 @@ declare const _default: {
                 middle_name?: string | undefined;
                 email: string;
                 mobile_no: string;
+                bvn?: string | null | undefined;
+                nin?: string | null | undefined;
             };
             bank: {
                 account_number: string;
@@ -78,8 +84,9 @@ declare const _default: {
             currency: string;
             metadata?: object | undefined;
         }>;
-        transfer(reference: string, request: {
+        transfer(request: {
             amount: number;
+            wallet_reference: string;
             currency?: string | undefined;
             narration?: string | undefined;
             destination: {

@@ -5,6 +5,8 @@ declare type Customer = {
     middle_name?: string;
     email: string;
     mobile_no: string;
+    bvn?: string | null | undefined;
+    nin?: string | null | undefined;
 };
 declare type BankAccount = {
     account_number: string;
@@ -34,6 +36,7 @@ declare type DebitWalletRequest = {
 };
 declare type TransferRequest = {
     amount: number;
+    wallet_reference: string;
     currency?: string;
     narration?: string;
     destination: {
@@ -59,7 +62,7 @@ declare const _default: {
     getWallet(reference: string): Promise<Wallet>;
     debitWallet(reference: string, request: DebitWalletRequest): Promise<Transaction>;
     creditWallet(reference: string, request: CreditWalletRequest): Promise<Transaction>;
-    transfer(reference: string, request: TransferRequest): Promise<Transaction>;
+    transfer(request: TransferRequest): Promise<Transaction>;
     getTransaction(reference: string): Promise<Transaction>;
 };
 export default _default;
