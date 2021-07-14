@@ -10,7 +10,7 @@ Please set an environment `BLUSALT_API_KEY` containing your blusalt API key
 
 ## Wallet
 ```typescript
-import blusalt from './src/index';
+import blusalt from '@blusalt/blusalt-payment-client';
 
 const wallet = await blusalt.wallet.createWallet({
     wallet_reference: "reference",
