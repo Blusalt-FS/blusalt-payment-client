@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: "https://wallets.blusalt.net" || process.env.BLUSALT_API_URL,
+    baseURL: process.env.BLUSALT_API_URL || "https://wallets.blusalt.net",
     headers: {
         Accept: 'application/json',
         'x-api-key': process.env.BLUSALT_API_KEY

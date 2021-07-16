@@ -10,27 +10,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const api_client_1 = require("./api-client");
+function handleResponse(data) {
+    if (data.status) {
+        return data.data;
+    }
+    else {
+        throw data.message;
+    }
+}
 exports.default = {
     createWallet(body) {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield api_client_1.default.post('/wallets', body)).data.data;
+            return handleResponse((yield api_client_1.default.post('/wallets', body)).data);
         });
     },
     getWallet(reference) {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield api_client_1.default.post(`/wallets/${reference}`)).data.data;
+            return handleResponse((yield api_client_1.default.post(`/wallets/${reference}`)).data);
         });
     },
     debitWallet(reference, request) {
         return __awaiter(this, void 0, void 0, function* () {
             const body = Object.assign(Object.assign({}, request), { action: "debit" });
-            return (yield api_client_1.default.put(`/wallets/${reference}`, body)).data.data;
+            return handleResponse((yield api_client_1.default.put(`/wallets/${reference}`, body)).data);
         });
     },
     creditWallet(reference, request) {
         return __awaiter(this, void 0, void 0, function* () {
             const body = Object.assign(Object.assign({}, request), { action: "credit" });
-            return (yield api_client_1.default.put(`/wallets/${reference}`, body)).data.data;
+            return handleResponse((yield api_client_1.default.put(`/wallets/${reference}`, body)).data);
         });
     },
     transfer(request) {
@@ -38,12 +46,12 @@ exports.default = {
             const body = Object.assign(Object.assign({}, request), { action: "transfer" });
             // @ts-ignore
             delete body.wallet_reference;
-            return (yield api_client_1.default.put(`/wallets/${request.wallet_reference}`, body)).data.data;
+            return handleResponse((yield api_client_1.default.put(`/wallets/${request.wallet_reference}`, body)).data);
         });
     },
     getTransaction(reference) {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield api_client_1.default.get(`/transactions/${reference}`)).data.data;
+            return handleResponse((yield api_client_1.default.get(`/transactions/${reference}`)).data);
         });
     }
 };

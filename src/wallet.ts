@@ -1,5 +1,5 @@
 import apiClient from './api-client';
-
+import axios from 'axios';
 type Customer = {
     gender: "M" | "F"
     first_name: string
@@ -20,9 +20,9 @@ type BankAccount = {
 
 type CreateWalletRequest = {
     wallet_reference: string
-    currency?:string
+    currency: string
     customer: Customer
-    type?: "bank" | "wallet"
+    type: "bank" | "wallet"
 }
 
 type Wallet = {
@@ -65,28 +65,36 @@ type Transaction = {
     currency: string
     metadata?: object
 }
+
+function handleResponse(data: any): any {
+    if (data.status){
+        return data.data;
+    } else {
+        throw data.message;
+    }
+}
 export default {
     async createWallet(body: CreateWalletRequest): Promise<Wallet>{
-        return (await apiClient.post('/wallets', body)).data.data;
+        return handleResponse((await apiClient.post('/wallets', body)).data);
     },
     async getWallet(reference: string): Promise<Wallet>{
-        return (await apiClient.post(`/wallets/${reference}`)).data.data;
+        return handleResponse((await apiClient.post(`/wallets/${reference}`)).data);
     },
     async debitWallet(reference: string, request: DebitWalletRequest ): Promise<Transaction>{
         const body = {...request, action: "debit"};
-        return (await apiClient.put(`/wallets/${reference}`, body)).data.data;
+        return handleResponse((await apiClient.put(`/wallets/${reference}`, body)).data);
     },
     async creditWallet(reference: string, request: CreditWalletRequest ): Promise<Transaction>{
         const body = {...request, action: "credit"};
-        return (await apiClient.put(`/wallets/${reference}`, body)).data.data;
+        return handleResponse((await apiClient.put(`/wallets/${reference}`, body)).data);
     },
     async transfer(request: TransferRequest ): Promise<Transaction>{
         const body = {...request, action: "transfer"};
         // @ts-ignore
         delete body.wallet_reference;
-        return (await apiClient.put(`/wallets/${request.wallet_reference}`, body)).data.data;
+        return handleResponse((await apiClient.put(`/wallets/${request.wallet_reference}`, body)).data);
     },
     async getTransaction(reference: string): Promise<Transaction>{
-        return (await apiClient.get(`/transactions/${reference}`)).data.data;
+        return handleResponse((await apiClient.get(`/transactions/${reference}`)).data);
     }
 }

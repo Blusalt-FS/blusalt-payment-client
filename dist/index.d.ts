@@ -2,7 +2,7 @@ declare const _default: {
     wallet: {
         createWallet(body: {
             wallet_reference: string;
-            currency?: string | undefined;
+            currency: string;
             customer: {
                 gender: "M" | "F";
                 first_name: string;
@@ -13,7 +13,7 @@ declare const _default: {
                 bvn?: string | null | undefined;
                 nin?: string | null | undefined;
             };
-            type?: "bank" | "wallet" | undefined;
+            type: "bank" | "wallet";
         }): Promise<{
             wallet_reference: string;
             wallet_id: string;

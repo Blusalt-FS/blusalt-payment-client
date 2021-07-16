@@ -16,9 +16,9 @@ declare type BankAccount = {
 };
 declare type CreateWalletRequest = {
     wallet_reference: string;
-    currency?: string;
+    currency: string;
     customer: Customer;
-    type?: "bank" | "wallet";
+    type: "bank" | "wallet";
 };
 declare type Wallet = {
     wallet_reference: string;
