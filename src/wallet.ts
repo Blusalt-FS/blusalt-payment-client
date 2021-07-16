@@ -66,6 +66,10 @@ type Transaction = {
     metadata?: object
 }
 
+type ResolvedBankAccount = {
+    account_number: string
+    account_name: string
+}
 function handleResponse(data: any): any {
     if (data.status){
         return data.data;
@@ -96,5 +100,8 @@ export default {
     },
     async getTransaction(reference: string): Promise<Transaction>{
         return handleResponse((await apiClient.get(`/transactions/${reference}`)).data);
+    },
+    async resolveBankAccount(accountNumber: string, bankCode: string): Promise<ResolvedBankAccount>{
+        return handleResponse((await apiClient.get(`/resolve-bank/${accountNumber}?bank_code=${bankCode}`)).data);
     }
 }
