@@ -110,6 +110,10 @@ declare const _default: {
             currency: string;
             metadata?: object | undefined;
         }>;
+        resolveBankAccount(accountNumber: string, bankCode: string): Promise<{
+            account_number: string;
+            account_name: string;
+        }>;
     };
 };
 export default _default;

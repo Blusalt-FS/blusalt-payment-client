@@ -57,6 +57,10 @@ declare type Transaction = {
     currency: string;
     metadata?: object;
 };
+declare type ResolvedBankAccount = {
+    account_number: string;
+    account_name: string;
+};
 declare const _default: {
     createWallet(body: CreateWalletRequest): Promise<Wallet>;
     getWallet(reference: string): Promise<Wallet>;
@@ -64,5 +68,6 @@ declare const _default: {
     creditWallet(reference: string, request: CreditWalletRequest): Promise<Transaction>;
     transfer(request: TransferRequest): Promise<Transaction>;
     getTransaction(reference: string): Promise<Transaction>;
+    resolveBankAccount(accountNumber: string, bankCode: string): Promise<ResolvedBankAccount>;
 };
 export default _default;
