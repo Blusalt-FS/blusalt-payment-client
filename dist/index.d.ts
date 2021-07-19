@@ -1,3 +1,4 @@
+export * from './error';
 declare const _default: {
     wallet: {
         createWallet(body: {

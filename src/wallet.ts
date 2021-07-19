@@ -1,5 +1,6 @@
 import apiClient from './api-client';
-import axios from 'axios';
+import { BlusaltError } from "./error";
+
 type Customer = {
     gender: "M" | "F"
     first_name: string
@@ -74,7 +75,7 @@ function handleResponse(data: any): any {
     if (data.status){
         return data.data;
     } else {
-        throw data.message;
+        throw new BlusaltError(data.message);
     }
 }
 export default {

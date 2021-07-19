@@ -10,12 +10,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const api_client_1 = require("./api-client");
+const error_1 = require("./error");
 function handleResponse(data) {
     if (data.status) {
         return data.data;
     }
     else {
-        throw data.message;
+        throw new error_1.BlusaltError(data.message);
     }
 }
 exports.default = {
