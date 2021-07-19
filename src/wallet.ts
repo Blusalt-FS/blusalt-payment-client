@@ -71,6 +71,11 @@ type ResolvedBankAccount = {
     account_number: string
     account_name: string
 }
+
+type Bank = {
+    name: string
+    code: string
+}
 function handleResponse(data: any): any {
     if (data.status){
         return data.data;
@@ -104,5 +109,8 @@ export default {
     },
     async resolveBankAccount(accountNumber: string, bankCode: string): Promise<ResolvedBankAccount>{
         return handleResponse((await apiClient.get(`/resolve-bank/${accountNumber}?bank_code=${bankCode}`)).data);
+    },
+    async getBanks(): Promise<Bank[]>{
+        return handleResponse((await apiClient.get(`/banks`)).data);
     }
 }

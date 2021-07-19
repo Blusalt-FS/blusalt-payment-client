@@ -59,5 +59,10 @@ exports.default = {
         return __awaiter(this, void 0, void 0, function* () {
             return handleResponse((yield api_client_1.default.get(`/resolve-bank/${accountNumber}?bank_code=${bankCode}`)).data);
         });
+    },
+    getBanks() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return handleResponse((yield api_client_1.default.get(`/banks`)).data);
+        });
     }
 };

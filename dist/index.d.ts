@@ -115,6 +115,10 @@ declare const _default: {
             account_number: string;
             account_name: string;
         }>;
+        getBanks(): Promise<{
+            name: string;
+            code: string;
+        }[]>;
     };
 };
 export default _default;
