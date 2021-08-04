@@ -1,6 +1,6 @@
 {
   "name": "@blusalt/blusalt-payment-client",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A library for connecting to blusalt payment APIs",
   "main": "./dist/index.js",
   "files": [

@@ -1,2 +1,1 @@
-import { AxiosInstance } from 'axios';
-export declare const getClient: () => AxiosInstance;
+export declare const getClient: (apiKey?: string | undefined) => import("axios").AxiosInstance;

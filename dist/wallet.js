@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Wallet = void 0;
 const api_client_1 = require("./api-client");
 const error_1 = require("./error");
 function handleResponse(data) {
@@ -19,50 +20,57 @@ function handleResponse(data) {
         throw new error_1.BlusaltError(data.message);
     }
 }
-exports.default = {
+class Wallet {
+    constructor(apiKey) {
+        this.apiKey = "";
+        if (apiKey)
+            this.apiKey = apiKey;
+        this.client = api_client_1.getClient(apiKey || process.env.BLUSALT_API_KEY);
+    }
     createWallet(body) {
         return __awaiter(this, void 0, void 0, function* () {
-            return handleResponse((yield api_client_1.getClient().post('/wallets', body)).data);
+            return handleResponse((yield this.client.post('/wallets', body)).data);
         });
-    },
+    }
     getWallet(reference) {
         return __awaiter(this, void 0, void 0, function* () {
-            return handleResponse((yield api_client_1.getClient().post(`/wallets/${reference}`)).data);
+            return handleResponse((yield this.client.post(`/wallets/${reference}`)).data);
         });
-    },
+    }
     debitWallet(reference, request) {
         return __awaiter(this, void 0, void 0, function* () {
             const body = Object.assign(Object.assign({}, request), { action: "debit" });
-            return handleResponse((yield api_client_1.getClient().put(`/wallets/${reference}`, body)).data);
+            return handleResponse((yield this.client.put(`/wallets/${reference}`, body)).data);
         });
-    },
+    }
     creditWallet(reference, request) {
         return __awaiter(this, void 0, void 0, function* () {
             const body = Object.assign(Object.assign({}, request), { action: "credit" });
-            return handleResponse((yield api_client_1.getClient().put(`/wallets/${reference}`, body)).data);
+            return handleResponse((yield this.client.put(`/wallets/${reference}`, body)).data);
         });
-    },
+    }
     transfer(request) {
         return __awaiter(this, void 0, void 0, function* () {
             const body = Object.assign(Object.assign({}, request), { action: "transfer" });
             // @ts-ignore
             delete body.wallet_reference;
-            return handleResponse((yield api_client_1.getClient().put(`/wallets/${request.wallet_reference}`, body)).data);
-        });
-    },
-    getTransaction(reference) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return handleResponse((yield api_client_1.getClient().get(`/transactions/${reference}`)).data);
-        });
-    },
-    resolveBankAccount(accountNumber, bankCode) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return handleResponse((yield api_client_1.getClient().get(`/resolve-bank/${accountNumber}?bank_code=${bankCode}`)).data);
-        });
-    },
-    getBanks() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return handleResponse((yield api_client_1.getClient().get(`/banks`)).data);
+            return handleResponse((yield this.client.put(`/wallets/${request.wallet_reference}`, body)).data);
         });
     }
-};
+    getTransaction(reference) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return handleResponse((yield this.client.get(`/transactions/${reference}`)).data);
+        });
+    }
+    resolveBankAccount(accountNumber, bankCode) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return handleResponse((yield this.client.get(`/resolve-bank/${accountNumber}?bank_code=${bankCode}`)).data);
+        });
+    }
+    getBanks() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return handleResponse((yield this.client.get(`/banks`)).data);
+        });
+    }
+}
+exports.Wallet = Wallet;

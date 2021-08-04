@@ -1,3 +1,4 @@
+import { AxiosInstance } from "axios";
 declare type Customer = {
     gender: "M" | "F";
     first_name: string;
@@ -20,7 +21,7 @@ declare type CreateWalletRequest = {
     customer: Customer;
     type: "bank" | "wallet";
 };
-declare type Wallet = {
+declare type BlusaltWallet = {
     wallet_reference: string;
     wallet_id: string;
     currency: string;
@@ -65,14 +66,17 @@ declare type Bank = {
     name: string;
     code: string;
 };
-declare const _default: {
-    createWallet(body: CreateWalletRequest): Promise<Wallet>;
-    getWallet(reference: string): Promise<Wallet>;
+export declare class Wallet {
+    apiKey: string;
+    client: AxiosInstance;
+    constructor(apiKey?: string);
+    createWallet(body: CreateWalletRequest): Promise<BlusaltWallet>;
+    getWallet(reference: string): Promise<BlusaltWallet>;
     debitWallet(reference: string, request: DebitWalletRequest): Promise<Transaction>;
     creditWallet(reference: string, request: CreditWalletRequest): Promise<Transaction>;
     transfer(request: TransferRequest): Promise<Transaction>;
     getTransaction(reference: string): Promise<Transaction>;
     resolveBankAccount(accountNumber: string, bankCode: string): Promise<ResolvedBankAccount>;
     getBanks(): Promise<Bank[]>;
-};
-export default _default;
+}
+export {};
