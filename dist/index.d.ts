@@ -120,5 +120,9 @@ declare const _default: {
             code: string;
         }[]>;
     };
+    config: {
+        setAPIKey(_apiKey: string): void;
+        getAPIKey(): string | undefined;
+    };
 };
 export default _default;

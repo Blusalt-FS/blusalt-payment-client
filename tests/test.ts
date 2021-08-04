@@ -1,10 +1,10 @@
-import blusalt from '../src';
+import { Wallet } from '../src';
 
-
+const blusaltWallet = new Wallet();
 (async () => {
     console.log('create wallet');
     try{
-        const wallet =  await blusalt.wallet.createWallet({
+        const wallet =  await blusaltWallet.createWallet({
             wallet_reference: "te33st",
             type: "bank",
             currency: "NGN",
@@ -22,7 +22,7 @@ import blusalt from '../src';
         console.log(wallet.bank.bank_code);
 
     } catch (e) {
-        console.log(e.response);
+        console.log(e.response || e);
     }
 
 })();

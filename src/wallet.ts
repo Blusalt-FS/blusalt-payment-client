@@ -1,5 +1,6 @@
-import apiClient from './api-client';
+import { getClient } from './api-client';
 import { BlusaltError } from "./error";
+import {AxiosInstance} from "axios";
 
 type Customer = {
     gender: "M" | "F"
@@ -26,7 +27,7 @@ type CreateWalletRequest = {
     type: "bank" | "wallet"
 }
 
-type Wallet = {
+type BlusaltWallet = {
     wallet_reference: string
     wallet_id: string
     currency: string
@@ -83,34 +84,52 @@ function handleResponse(data: any): any {
         throw new BlusaltError(data.message);
     }
 }
-export default {
-    async createWallet(body: CreateWalletRequest): Promise<Wallet>{
-        return handleResponse((await apiClient.post('/wallets', body)).data);
-    },
-    async getWallet(reference: string): Promise<Wallet>{
-        return handleResponse((await apiClient.post(`/wallets/${reference}`)).data);
-    },
+
+export class Wallet {
+    apiKey: string = "";
+    client: AxiosInstance;
+    constructor(apiKey?: string) {
+        if (apiKey)
+            this.apiKey = apiKey;
+
+        this.client = getClient(apiKey || process.env.BLUSALT_API_KEY);
+    }
+
+    async createWallet(body: CreateWalletRequest): Promise<BlusaltWallet>{
+        return handleResponse((await this.client.post('/wallets', body)).data);
+    }
+
+    async getWallet(reference: string): Promise<BlusaltWallet>{
+        return handleResponse((await this.client.post(`/wallets/${reference}`)).data);
+    }
+
     async debitWallet(reference: string, request: DebitWalletRequest ): Promise<Transaction>{
         const body = {...request, action: "debit"};
-        return handleResponse((await apiClient.put(`/wallets/${reference}`, body)).data);
-    },
+        return handleResponse((await this.client.put(`/wallets/${reference}`, body)).data);
+    }
+
     async creditWallet(reference: string, request: CreditWalletRequest ): Promise<Transaction>{
         const body = {...request, action: "credit"};
-        return handleResponse((await apiClient.put(`/wallets/${reference}`, body)).data);
-    },
+        return handleResponse((await this.client.put(`/wallets/${reference}`, body)).data);
+    }
+
     async transfer(request: TransferRequest ): Promise<Transaction>{
         const body = {...request, action: "transfer"};
         // @ts-ignore
         delete body.wallet_reference;
-        return handleResponse((await apiClient.put(`/wallets/${request.wallet_reference}`, body)).data);
-    },
-    async getTransaction(reference: string): Promise<Transaction>{
-        return handleResponse((await apiClient.get(`/transactions/${reference}`)).data);
-    },
-    async resolveBankAccount(accountNumber: string, bankCode: string): Promise<ResolvedBankAccount>{
-        return handleResponse((await apiClient.get(`/resolve-bank/${accountNumber}?bank_code=${bankCode}`)).data);
-    },
-    async getBanks(): Promise<Bank[]>{
-        return handleResponse((await apiClient.get(`/banks`)).data);
+        return handleResponse((await this.client.put(`/wallets/${request.wallet_reference}`, body)).data);
     }
+
+    async getTransaction(reference: string): Promise<Transaction>{
+        return handleResponse((await this.client.get(`/transactions/${reference}`)).data);
+    }
+
+    async resolveBankAccount(accountNumber: string, bankCode: string): Promise<ResolvedBankAccount>{
+        return handleResponse((await this.client.get(`/resolve-bank/${accountNumber}?bank_code=${bankCode}`)).data);
+    }
+
+    async getBanks(): Promise<Bank[]>{
+        return handleResponse((await this.client.get(`/banks`)).data);
+    }
+
 }

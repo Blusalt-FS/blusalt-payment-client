@@ -1,2 +1,2 @@
-declare const _default: import("axios").AxiosInstance;
-export default _default;
+import { AxiosInstance } from 'axios';
+export declare const getClient: () => AxiosInstance;

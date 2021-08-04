@@ -8,11 +8,20 @@ npm i @blusalt/blusalt-payment-client
 ## Authentication
 Please set an environment `BLUSALT_API_KEY` containing your blusalt API key
 
+### Set API programmatically
+```javascript
+import { Wallet } from '@blusalt/blusalt-payment-client';
+
+const blusaltWallet = new Wallet(apiKey);
+```
+
 ## Wallet
 ```typescript
-import blusalt from '@blusalt/blusalt-payment-client';
+import { Wallet } from '@blusalt/blusalt-payment-client';
 
-const wallet = await blusalt.wallet.createWallet({
+const blusaltWallet = new Wallet();
+
+const wallet = await blusaltWallet.createWallet({
     wallet_reference: "reference",
     currency: "NGN",
     type: "bank",

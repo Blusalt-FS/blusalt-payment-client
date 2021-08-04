@@ -22,24 +22,24 @@ function handleResponse(data) {
 exports.default = {
     createWallet(body) {
         return __awaiter(this, void 0, void 0, function* () {
-            return handleResponse((yield api_client_1.default.post('/wallets', body)).data);
+            return handleResponse((yield api_client_1.getClient().post('/wallets', body)).data);
         });
     },
     getWallet(reference) {
         return __awaiter(this, void 0, void 0, function* () {
-            return handleResponse((yield api_client_1.default.post(`/wallets/${reference}`)).data);
+            return handleResponse((yield api_client_1.getClient().post(`/wallets/${reference}`)).data);
         });
     },
     debitWallet(reference, request) {
         return __awaiter(this, void 0, void 0, function* () {
             const body = Object.assign(Object.assign({}, request), { action: "debit" });
-            return handleResponse((yield api_client_1.default.put(`/wallets/${reference}`, body)).data);
+            return handleResponse((yield api_client_1.getClient().put(`/wallets/${reference}`, body)).data);
         });
     },
     creditWallet(reference, request) {
         return __awaiter(this, void 0, void 0, function* () {
             const body = Object.assign(Object.assign({}, request), { action: "credit" });
-            return handleResponse((yield api_client_1.default.put(`/wallets/${reference}`, body)).data);
+            return handleResponse((yield api_client_1.getClient().put(`/wallets/${reference}`, body)).data);
         });
     },
     transfer(request) {
@@ -47,22 +47,22 @@ exports.default = {
             const body = Object.assign(Object.assign({}, request), { action: "transfer" });
             // @ts-ignore
             delete body.wallet_reference;
-            return handleResponse((yield api_client_1.default.put(`/wallets/${request.wallet_reference}`, body)).data);
+            return handleResponse((yield api_client_1.getClient().put(`/wallets/${request.wallet_reference}`, body)).data);
         });
     },
     getTransaction(reference) {
         return __awaiter(this, void 0, void 0, function* () {
-            return handleResponse((yield api_client_1.default.get(`/transactions/${reference}`)).data);
+            return handleResponse((yield api_client_1.getClient().get(`/transactions/${reference}`)).data);
         });
     },
     resolveBankAccount(accountNumber, bankCode) {
         return __awaiter(this, void 0, void 0, function* () {
-            return handleResponse((yield api_client_1.default.get(`/resolve-bank/${accountNumber}?bank_code=${bankCode}`)).data);
+            return handleResponse((yield api_client_1.getClient().get(`/resolve-bank/${accountNumber}?bank_code=${bankCode}`)).data);
         });
     },
     getBanks() {
         return __awaiter(this, void 0, void 0, function* () {
-            return handleResponse((yield api_client_1.default.get(`/banks`)).data);
+            return handleResponse((yield api_client_1.getClient().get(`/banks`)).data);
         });
     }
 };
