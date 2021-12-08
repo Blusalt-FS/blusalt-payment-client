@@ -34,7 +34,7 @@ class Wallet {
     }
     getWallet(reference) {
         return __awaiter(this, void 0, void 0, function* () {
-            return handleResponse((yield this.client.post(`/wallets/${reference}`)).data);
+            return handleResponse((yield this.client.get(`/wallets/${reference}`)).data);
         });
     }
     debitWallet(reference, request) {

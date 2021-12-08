@@ -105,7 +105,7 @@ export class Wallet {
     }
 
     async getWallet(reference: string): Promise<BlusaltWallet>{
-        return handleResponse((await this.client.post(`/wallets/${reference}`)).data);
+        return handleResponse((await this.client.get(`/wallets/${reference}`)).data);
     }
 
     async debitWallet(reference: string, request: DebitWalletRequest ): Promise<Transaction>{
