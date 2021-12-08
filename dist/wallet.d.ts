@@ -9,12 +9,6 @@ declare type Customer = {
     bvn?: string | null | undefined;
     nin?: string | null | undefined;
 };
-declare type BankAccount = {
-    account_number: string;
-    account_name: string;
-    bank_name: string;
-    bank_code: string;
-};
 declare type CreateWalletRequest = {
     wallet_reference: string;
     currency: string;
@@ -25,9 +19,13 @@ declare type BlusaltWallet = {
     wallet_reference: string;
     wallet_id: string;
     currency: string;
+    active: boolean;
+    account_name: string;
+    account_number: string;
+    bank_name: string;
+    bank_code: string;
     balance: number;
     customer: Customer;
-    bank: BankAccount;
     createdAt: string;
     updatedAt: string;
 };

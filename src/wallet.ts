@@ -31,9 +31,14 @@ type BlusaltWallet = {
     wallet_reference: string
     wallet_id: string
     currency: string
+    active: boolean
+    account_name: string
+    account_number: string
+    bank_name: string
+    bank_code: string
     balance: number
     customer: Customer
-    bank: BankAccount
+    // bank: BankAccount
     createdAt: string
     updatedAt: string
 }
