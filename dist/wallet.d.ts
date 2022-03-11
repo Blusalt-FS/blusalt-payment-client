@@ -69,6 +69,7 @@ export declare class Wallet {
     client: AxiosInstance;
     constructor(apiKey?: string);
     createWallet(body: CreateWalletRequest): Promise<BlusaltWallet>;
+    getWallets(reference: string): Promise<BlusaltWallet[]>;
     getWallet(reference: string): Promise<BlusaltWallet>;
     debitWallet(reference: string, request: DebitWalletRequest): Promise<Transaction>;
     creditWallet(reference: string, request: CreditWalletRequest): Promise<Transaction>;

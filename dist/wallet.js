@@ -12,8 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Wallet = void 0;
 const api_client_1 = require("./api-client");
 const error_1 = require("./error");
-function handleResponse(data) {
+function handleResponse(data, single = false) {
     if (data.status) {
+        if (Array.isArray(data.data) && single) {
+            return data.data[0];
+        }
         return data.data;
     }
     else {
@@ -32,9 +35,14 @@ class Wallet {
             return handleResponse((yield this.client.post('/wallets', body)).data);
         });
     }
-    getWallet(reference) {
+    getWallets(reference) {
         return __awaiter(this, void 0, void 0, function* () {
             return handleResponse((yield this.client.get(`/wallets/${reference}`)).data);
+        });
+    }
+    getWallet(reference) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return handleResponse((yield this.client.get(`/wallets/${reference}`)).data, true);
         });
     }
     debitWallet(reference, request) {
