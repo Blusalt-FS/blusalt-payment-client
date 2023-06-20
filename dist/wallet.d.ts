@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-declare type Customer = {
+type Customer = {
     gender: "M" | "F";
     first_name: string;
     last_name: string;
@@ -9,13 +9,40 @@ declare type Customer = {
     bvn?: string | null | undefined;
     nin?: string | null | undefined;
 };
-declare type CreateWalletRequest = {
+type Business = {
+    name: string;
+    "rc_number": string;
+    "address": string;
+    "first_name": string;
+    "last_name": string;
+    "email": string;
+    "mobile_no": string;
+};
+type CreateReservedAccountRequest = {
+    currency: string;
+    customer: Customer;
+};
+type CreateBusinessReservedAccountRequest = {
+    currency: string;
+    business: Business;
+};
+type CreateWalletRequest = {
     wallet_reference: string;
     currency: string;
     customer: Customer;
     type: "bank" | "wallet";
 };
-declare type BlusaltWallet = {
+type ReservedAccount = {
+    "reference": string;
+    "account_name": string;
+    "account_number": string;
+    "bank_name": "string";
+    "updatedAt": string;
+    "createdAt": string;
+    "total_transactions": number;
+    "total_transactions_value": number;
+};
+type BlusaltWallet = {
     wallet_reference: string;
     wallet_id: string;
     currency: string;
@@ -29,11 +56,15 @@ declare type BlusaltWallet = {
     createdAt: string;
     updatedAt: string;
 };
-declare type DebitWalletRequest = {
+type DebitWalletRequest = {
     amount: number;
     currency?: string;
 };
-declare type TransferRequest = {
+type TransferRequest = {
+    otp?: string;
+    type?: "wallet" | "subscription" | "blusalt-core";
+    transaction_reference: string;
+    metadata?: object;
     amount: number;
     wallet_reference: string;
     currency?: string;
@@ -44,11 +75,11 @@ declare type TransferRequest = {
         bank_code?: string;
     };
 };
-declare type CreditWalletRequest = {
+type CreditWalletRequest = {
     amount: number;
     currency?: string;
 };
-declare type Transaction = {
+type Transaction = {
     reference: string;
     amount: number;
     status: "pending" | "successful" | "failed";
@@ -56,11 +87,11 @@ declare type Transaction = {
     currency: string;
     metadata?: object;
 };
-declare type ResolvedBankAccount = {
+type ResolvedBankAccount = {
     account_number: string;
     account_name: string;
 };
-declare type Bank = {
+type Bank = {
     name: string;
     code: string;
 };
@@ -69,6 +100,8 @@ export declare class Wallet {
     client: AxiosInstance;
     constructor(apiKey?: string);
     createWallet(body: CreateWalletRequest): Promise<BlusaltWallet>;
+    createReservedAccount(body: CreateReservedAccountRequest): Promise<ReservedAccount>;
+    createBusinessReservedAccount(body: CreateBusinessReservedAccountRequest): Promise<ReservedAccount>;
     getWallets(reference: string): Promise<BlusaltWallet[]>;
     getWallet(reference: string): Promise<BlusaltWallet>;
     debitWallet(reference: string, request: DebitWalletRequest): Promise<Transaction>;

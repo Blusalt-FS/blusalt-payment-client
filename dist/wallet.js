@@ -28,11 +28,21 @@ class Wallet {
         this.apiKey = "";
         if (apiKey)
             this.apiKey = apiKey;
-        this.client = api_client_1.getClient(apiKey || process.env.BLUSALT_API_KEY);
+        this.client = (0, api_client_1.getClient)(apiKey || process.env.BLUSALT_API_KEY);
     }
     createWallet(body) {
         return __awaiter(this, void 0, void 0, function* () {
             return handleResponse((yield this.client.post('/wallets', body)).data);
+        });
+    }
+    createReservedAccount(body) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return handleResponse((yield this.client.post('/reserved-accounts', body)).data);
+        });
+    }
+    createBusinessReservedAccount(body) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return handleResponse((yield this.client.post('/reserved-accounts', body)).data);
         });
     }
     getWallets(reference) {
