@@ -78,6 +78,10 @@ type DebitWalletRequest = {
 }
 
 type TransferRequest = {
+    otp?: string,
+    type?: "wallet" | "subscription" | "blusalt-core",
+    transaction_reference: string,
+    metadata?: object,
     amount: number
     wallet_reference: string,
     currency?: string
