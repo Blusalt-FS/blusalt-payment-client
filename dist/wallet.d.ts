@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-type Customer = {
+export declare type Customer = {
     gender: "M" | "F";
     first_name: string;
     last_name: string;
@@ -9,40 +9,40 @@ type Customer = {
     bvn?: string | null | undefined;
     nin?: string | null | undefined;
 };
-type Business = {
+export declare type Business = {
     name: string;
-    "rc_number": string;
-    "address": string;
-    "first_name": string;
-    "last_name": string;
-    "email": string;
-    "mobile_no": string;
+    rc_number: string;
+    address: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+    mobile_no: string;
 };
-type CreateReservedAccountRequest = {
+export declare type CreateReservedAccountRequest = {
     currency: string;
     customer: Customer;
 };
-type CreateBusinessReservedAccountRequest = {
+export declare type CreateBusinessReservedAccountRequest = {
     currency: string;
     business: Business;
 };
-type CreateWalletRequest = {
+export declare type CreateWalletRequest = {
     wallet_reference: string;
     currency: string;
     customer: Customer;
     type: "bank" | "wallet";
 };
-type ReservedAccount = {
-    "reference": string;
-    "account_name": string;
-    "account_number": string;
-    "bank_name": "string";
-    "updatedAt": string;
-    "createdAt": string;
-    "total_transactions": number;
-    "total_transactions_value": number;
+export declare type ReservedAccount = {
+    reference: string;
+    account_name: string;
+    account_number: string;
+    bank_name: "string";
+    updatedAt: string;
+    createdAt: string;
+    total_transactions: number;
+    total_transactions_value: number;
 };
-type BlusaltWallet = {
+export declare type BlusaltWallet = {
     wallet_reference: string;
     wallet_id: string;
     currency: string;
@@ -56,11 +56,11 @@ type BlusaltWallet = {
     createdAt: string;
     updatedAt: string;
 };
-type DebitWalletRequest = {
+export declare type DebitWalletRequest = {
     amount: number;
     currency?: string;
 };
-type TransferRequest = {
+export declare type TransferRequest = {
     otp?: string;
     type?: "wallet" | "subscription" | "blusalt-core";
     transaction_reference: string;
@@ -75,11 +75,11 @@ type TransferRequest = {
         bank_code?: string;
     };
 };
-type CreditWalletRequest = {
+export declare type CreditWalletRequest = {
     amount: number;
     currency?: string;
 };
-type Transaction = {
+export declare type Transaction = {
     reference: string;
     amount: number;
     status: "pending" | "successful" | "failed";
@@ -87,11 +87,11 @@ type Transaction = {
     currency: string;
     metadata?: object;
 };
-type ResolvedBankAccount = {
+export declare type ResolvedBankAccount = {
     account_number: string;
     account_name: string;
 };
-type Bank = {
+export declare type Bank = {
     name: string;
     code: string;
 };
@@ -111,4 +111,3 @@ export declare class Wallet {
     resolveBankAccount(accountNumber: string, bankCode: string): Promise<ResolvedBankAccount>;
     getBanks(): Promise<Bank[]>;
 }
-export {};

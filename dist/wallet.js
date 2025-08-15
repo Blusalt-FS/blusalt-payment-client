@@ -28,21 +28,21 @@ class Wallet {
         this.apiKey = "";
         if (apiKey)
             this.apiKey = apiKey;
-        this.client = (0, api_client_1.getClient)(apiKey || process.env.BLUSALT_API_KEY);
+        this.client = api_client_1.getClient(apiKey || process.env.BLUSALT_API_KEY);
     }
     createWallet(body) {
         return __awaiter(this, void 0, void 0, function* () {
-            return handleResponse((yield this.client.post('/wallets', body)).data);
+            return handleResponse((yield this.client.post("/wallets", body)).data);
         });
     }
     createReservedAccount(body) {
         return __awaiter(this, void 0, void 0, function* () {
-            return handleResponse((yield this.client.post('/reserved-accounts', body)).data);
+            return handleResponse((yield this.client.post("/reserved-accounts", body)).data);
         });
     }
     createBusinessReservedAccount(body) {
         return __awaiter(this, void 0, void 0, function* () {
-            return handleResponse((yield this.client.post('/reserved-accounts', body)).data);
+            return handleResponse((yield this.client.post("/reserved-accounts", body)).data);
         });
     }
     getWallets(reference) {
@@ -72,7 +72,8 @@ class Wallet {
             const body = Object.assign(Object.assign({}, request), { action: "transfer" });
             // @ts-ignore
             delete body.wallet_reference;
-            return handleResponse((yield this.client.put(`/wallets/${request.wallet_reference}`, body)).data);
+            return handleResponse((yield this.client.put(`/wallets/${request.wallet_reference}`, body))
+                .data);
         });
     }
     getTransaction(reference) {

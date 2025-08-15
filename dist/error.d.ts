@@ -1,3 +1,9 @@
 export declare class BlusaltError extends Error {
-    constructor(message: string);
+    errorCode: string;
+    error: string;
+    constructor(response: {
+        message: string;
+        error_code: string;
+        error: string;
+    });
 }

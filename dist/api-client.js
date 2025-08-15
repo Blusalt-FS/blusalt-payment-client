@@ -6,9 +6,12 @@ const getClient = (apiKey) => {
     return axios_1.default.create({
         baseURL: process.env.BLUSALT_API_URL || "https://wallets.blusalt.net",
         headers: {
-            Accept: 'application/json',
-            'x-api-key': apiKey || process.env.BLUSALT_API_KEY
-        }
+            Accept: "application/json",
+            "x-api-key": apiKey || process.env.BLUSALT_API_KEY,
+        },
+        validateStatus: (status) => {
+            return true;
+        },
     });
 };
 exports.getClient = getClient;
