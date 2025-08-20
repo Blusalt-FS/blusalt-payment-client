@@ -122,7 +122,7 @@ function handleResponse(data: any, single = false): any {
     }
     return data.data;
   } else {
-    throw new BlusaltError(data.message);
+    throw new BlusaltError(data);
   }
 }
 

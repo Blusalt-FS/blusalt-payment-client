@@ -20,7 +20,7 @@ function handleResponse(data, single = false) {
         return data.data;
     }
     else {
-        throw new error_1.BlusaltError(data.message);
+        throw new error_1.BlusaltError(data);
     }
 }
 class Wallet {
