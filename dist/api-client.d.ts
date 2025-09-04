@@ -1,1 +1,1 @@
-export declare const getClient: (apiKey?: string | undefined) => import("axios").AxiosInstance;
+export declare const getClient: (apiKey?: string | undefined, baseUrl?: string | undefined) => import("axios").AxiosInstance;

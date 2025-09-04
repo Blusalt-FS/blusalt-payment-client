@@ -24,11 +24,14 @@ function handleResponse(data, single = false) {
     }
 }
 class Wallet {
-    constructor(apiKey) {
+    constructor({ apiKey, baseUrl }) {
         this.apiKey = "";
+        this.baseUrl = "";
         if (apiKey)
             this.apiKey = apiKey;
-        this.client = api_client_1.getClient(apiKey || process.env.BLUSALT_API_KEY);
+        if (baseUrl)
+            this.baseUrl = baseUrl;
+        this.client = api_client_1.getClient(apiKey || process.env.BLUSALT_API_KEY, baseUrl);
     }
     createWallet(body) {
         return __awaiter(this, void 0, void 0, function* () {

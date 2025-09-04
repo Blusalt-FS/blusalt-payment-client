@@ -97,8 +97,12 @@ export declare type Bank = {
 };
 export declare class Wallet {
     apiKey: string;
+    baseUrl: string;
     client: AxiosInstance;
-    constructor(apiKey?: string);
+    constructor({ apiKey, baseUrl }: {
+        apiKey?: string;
+        baseUrl?: string;
+    });
     createWallet(body: CreateWalletRequest): Promise<BlusaltWallet>;
     createReservedAccount(body: CreateReservedAccountRequest): Promise<ReservedAccount>;
     createBusinessReservedAccount(body: CreateBusinessReservedAccountRequest): Promise<ReservedAccount>;

@@ -1,8 +1,9 @@
 import axios from "axios";
 
-export const getClient = (apiKey?: string) => {
+export const getClient = (apiKey?: string, baseUrl?: string) => {
   return axios.create({
-    baseURL: process.env.BLUSALT_API_URL || "https://wallets.blusalt.net",
+    baseURL:
+      baseUrl || process.env.BLUSALT_API_URL || "https://wallets.blusalt.net",
     headers: {
       Accept: "application/json",
       "x-api-key": apiKey || process.env.BLUSALT_API_KEY,

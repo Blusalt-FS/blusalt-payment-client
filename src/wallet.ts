@@ -128,11 +128,13 @@ function handleResponse(data: any, single = false): any {
 
 export class Wallet {
   apiKey: string = "";
+  baseUrl: string = "";
   client: AxiosInstance;
-  constructor(apiKey?: string) {
+  constructor({ apiKey, baseUrl }: { apiKey?: string; baseUrl?: string }) {
     if (apiKey) this.apiKey = apiKey;
+    if (baseUrl) this.baseUrl = baseUrl;
 
-    this.client = getClient(apiKey || process.env.BLUSALT_API_KEY);
+    this.client = getClient(apiKey || process.env.BLUSALT_API_KEY, baseUrl);
   }
 
   async createWallet(body: CreateWalletRequest): Promise<BlusaltWallet> {
